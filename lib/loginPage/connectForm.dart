@@ -78,8 +78,7 @@ class _ConnectFormState extends State<ConnectForm> {
                         onPressed: () {
                           if (_keyForm.currentState!.validate()) {
                             _keyForm.currentState!.save();
-                            print(email);
-                            print(password);
+                            Navigator.pushNamed(context, "/twitter", arguments : email);
                             showDialog(
                                 context: context,
                                 builder: (context) {

@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:twitter/tweetPage/twitterPage.dart';
 
-import 'Footer.dart';
-import 'Header.dart';
-import 'connectForm.dart';
-import 'contentBody.dart';
+import 'loginPage/loginPage.dart';
+import 'shareComponents/Footer.dart';
+import 'shareComponents/Header.dart';
+import 'loginPage/connectForm.dart';
+import 'tweetPage/contentBody.dart';
 
 void main() {
   runApp(App());
+}
+
+class Routes {
+  static Map<String, WidgetBuilder> getRoutes(BuildContext context){
+    return {
+      "/login" : (context) => LoginPage(),
+      "/twitter" : (context) => TwitterPage()
+    };
+  }
 }
 
 class App extends StatelessWidget {
@@ -15,31 +26,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Demo Layout",
-      home: AppHomePage(title: "Demo widget de contenu"),
+     initialRoute: "/login",
+      routes: Routes.getRoutes(context),
     );
   }
 }
 
-class AppHomePage extends StatelessWidget {
-  String title;
-
-  AppHomePage({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Twitter"),
-        ),
-        body: Column(children: [
-          HeaderMenu(),
-          ConnectForm(),
-          Expanded(child: Tweet()),
-          FooterMenu()
-        ]));
-  }
-}
 
 
 
