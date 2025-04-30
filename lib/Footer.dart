@@ -4,7 +4,7 @@ class FooterButton extends StatelessWidget{
   
   String label;
   
-  FooterButton({required this.label});
+  FooterButton({super.key, required this.label});
   
   @override
   Widget build(BuildContext context) {
@@ -16,6 +16,8 @@ class FooterButton extends StatelessWidget{
 }
 
 class FooterMenu extends StatelessWidget {
+  const FooterMenu({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(

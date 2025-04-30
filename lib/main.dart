@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:email_validator/email_validator.dart';
 
 import 'Footer.dart';
 import 'Header.dart';
@@ -25,7 +24,7 @@ class App extends StatelessWidget {
 class AppHomePage extends StatelessWidget {
   String title;
 
-  AppHomePage({required this.title});
+  AppHomePage({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {

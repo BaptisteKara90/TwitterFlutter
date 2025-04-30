@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
 
-class HeaderButton extends StatelessWidget{
+class HeaderButton extends StatelessWidget {
+  String? label;
+  Icon? icon;
 
-  String label;
+  HeaderButton({super.key, this.label, this.icon});
 
-  HeaderButton({required this.label});
+  Widget getButtonType() {
+    if (icon != null) {
+      return IconButton(onPressed: (){}, icon: icon!);
+    } else {
+      return TextButton(
+          onPressed: () {},
+          child: Text(label ?? "",
+              style: TextStyle(color: Colors.white, fontSize: 20)));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-   return TextButton(
-        onPressed: () {},
-        child: Text(label,
-            style: TextStyle(color: Colors.white, fontSize: 20)));
+    return getButtonType();
   }
-
 }
 
 class HeaderMenu extends StatelessWidget {
+  const HeaderMenu({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,9 +35,9 @@ class HeaderMenu extends StatelessWidget {
         direction: Axis.horizontal,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-         IconButton(onPressed: (){}, icon: Icon(Icons.edit, color: Colors.white)),
+          HeaderButton(icon: Icon(Icons.edit, color: Colors.white)),
           HeaderButton(label: "Accueil"),
-          IconButton(onPressed: (){}, icon: Icon(Icons.search, color: Colors.white)),
+          HeaderButton(icon: Icon(Icons.search, color: Colors.white)),
         ],
       ),
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Tweet extends StatelessWidget {
+  const Tweet({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,6 +51,8 @@ class Tweet extends StatelessWidget {
 }
 
 class TweetMenu extends StatelessWidget {
+  const TweetMenu({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,7 +65,7 @@ class TweetMenu extends StatelessWidget {
                 icon: Icon(Icons.reply, color: Colors.grey)),
             IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.autorenew, color: Colors.grey)),
+                icon: Icon(Icons.repeat, color: Colors.grey)),
             IconButton(
                 onPressed: () {},
                 icon: Icon(Icons.star, color: Colors.grey)),
