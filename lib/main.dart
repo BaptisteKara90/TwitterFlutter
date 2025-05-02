@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:twitter/tweetPage/twitterPage.dart';
 
 import 'loginPage/loginPage.dart';
-import 'shareComponents/Footer.dart';
-import 'shareComponents/Header.dart';
-import 'loginPage/connectForm.dart';
-import 'tweetPage/contentBody.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() {
+  setPathUrlStrategy();
   runApp(App());
 }
 
