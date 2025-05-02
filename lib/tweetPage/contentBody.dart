@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
+import 'package:twitter/helpers/formatDuration.dart';
 
-class Tweet extends StatelessWidget {
-  const Tweet({super.key});
+import '../models/tweet.dart';
+
+
+class TweetView extends StatelessWidget {
+  Tweet tweet;
+
+
+  TweetView(this.tweet);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +22,7 @@ class Tweet extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset("assets/images/herisson.jpg", width: 180),
+              Image.network(tweet.profile ?? "", width: 180),
               SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -24,17 +33,15 @@ class Tweet extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("JPP@BLC"),
+                          Text(tweet.author ?? ""),
                           Text(
-                            "20min",
+                            "${formatDuration(tweet.createdDate!)}",
                             style: TextStyle(color: Colors.grey),
                           ),
                         ],
                       ),
                     ),
-                    Text(
-                      "Hérisson est un nom vernaculaire qui désigne, en français, divers petits mammifères insectivores disposant de poils agglomérés, durs, hérissés et piquants. Ce nom dérive du latin ericius. Les espèces les plus connues des francophones sont le Hérisson commun et le Hérisson d'Europe orientale mais il existe d'autres « hérissons » sur divers continents, y compris en Asie un genre apparenté mais dont les représentants sont dépourvus de piquants : les gymnures.",
-                    ),
+                    Text(tweet.message ?? ""),
                   ],
                 ),
               ),
@@ -70,6 +77,41 @@ class TweetMenu extends StatelessWidget {
                 onPressed: () {},
                 icon: Icon(Icons.star, color: Colors.grey)),
           ]),
+    );
+  }
+}
+
+class LoadTweet extends StatefulWidget {
+  @override
+  State<LoadTweet> createState() => _LoadTweetState();
+}
+
+class _LoadTweetState extends State<LoadTweet> {
+  List<Tweet> tweets = [];
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        FutureBuilder(future: http.get(Uri.parse(
+            "https://raw.githubusercontent.com/Chocolaterie/EniWebService/main/api/tweets.json")),
+            builder: (context, snapshot) {
+              if(snapshot.hasData && snapshot.data?.body != null) {
+                var json = convert.jsonDecode(snapshot.data!.body);
+                tweets =
+                List<Tweet>.from(json.map((data) => Tweet.fromJson(data)));
+                return Expanded(child: ListView.builder(
+                  itemCount: tweets.length,
+                  itemBuilder: (context, index) {
+                    return TweetView(tweets[index]);
+                  },
+                ),
+                );
+              }
+              return CircularProgressIndicator();
+            })
+      ],
     );
   }
 }

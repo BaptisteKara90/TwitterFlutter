@@ -17,7 +17,7 @@ class TwitterPage extends StatelessWidget{
           HeaderMenu(),
           Text(email),
           Expanded(
-              child: Tweet()
+              child: LoadTweet()
           ),
           FooterMenu(),
         ],
