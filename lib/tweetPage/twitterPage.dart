@@ -7,7 +7,7 @@ import 'contentBody.dart';
 class TwitterPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    String? email = ModalRoute.of(context)!.settings.arguments as String?;
+    String email = (ModalRoute.of(context)!.settings.arguments as String?) ?? "";
     return Scaffold(
       appBar: AppBar(
         title: Text("Twitter"),
@@ -15,7 +15,7 @@ class TwitterPage extends StatelessWidget{
       body: Column(
         children: [
           HeaderMenu(),
-          Text(email!),
+          Text(email),
           Expanded(
               child: Tweet()
           ),
